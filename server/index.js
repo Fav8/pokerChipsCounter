@@ -33,16 +33,16 @@ io.on("connection", (socket) => {
   });
 
 
-  //user clicks to add to colour 
-  socket.on("addToUser", (id, colour, room) => {
-    console.log(room)
-    io.to(room).emit("moneyAddedToUser", )
-  });
+  // //user clicks to add to colour 
+  // socket.on("addToUser", (id, colour, room) => {
+  //   console.log(room)
+  //   io.to(room).emit("moneyAddedToUser", )
+  // });
 
-  socket.on("removeFromUser", (id, colour, room) => {
-    console.log(room)
-    io.to(room).emit("moneyAddedToUser", )
-  });
+  // socket.on("removeFromUser", (id, colour, room) => {
+  //   console.log(room)
+  //   io.to(room).emit("moneyAddedToUser", )
+  // });
 
   //user clicks to add to middle 
   socket.on("addedToPot", (pot, amount, id, room) => { 
