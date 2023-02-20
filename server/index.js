@@ -34,17 +34,17 @@ io.on("connection", (socket) => {
 
 
   //user clicks to add to colour 
-  socket.on("addToUser", (id, colour, listOfUsers, room) => {
+  socket.on("addToUser", (userId, chipColour, listOfUsers, room) => {
     for(user in listOfUsers) { 
-      if(user.id === id) user.chips[colour].qty += 1
+      if(user.id === userId) user.chips[colour].qty += 1
     }
     io.to(room).emit("moneyAddedToUser", listOfUsers)
   });
 
   //user clicks to remove from colour 
-  socket.on("removeFromUser", (id, colour, listOfUsers, room) => {
+  socket.on("removeFromUser", (userId, chipColour, listOfUsers, room) => {
     for(user in listOfUsers) { 
-      if(user.id === id) user.chips[colour].qty -= 1
+      if(user.id === userId) user.chips[colour].qty -= 1
     }
     io.to(room).emit("moneyAddedToUser", listOfUsers)
   });
