@@ -20,7 +20,6 @@ export default {
     const name = ref('');
     function joinRoom() {
       socketService.joinRoom(name.value)
-      console.log(name.value);
       router.push('/game')
     }
     return {
