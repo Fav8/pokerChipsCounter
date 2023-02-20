@@ -3,7 +3,7 @@
     <img src="../assets/logo.png" style="height: 100px; width: auto;" alt="Vue.js PWA">
     <h1>Enter your name</h1>
     <input type="text" v-model="name" placeholder="your name"/>
-    <button @click="joinRoom"></button>
+    <button @click="joinRoom">JOIN</button>
   </div>
 </template>
 

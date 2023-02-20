@@ -13,7 +13,6 @@ let pot = 0;
 
 io.on("connection", (socket) => {
   socket.on("joinRoom", (room, username) => {
-    socket.join(room);
     socket.username = username;
     const socketIds = Array.from(io.sockets.adapter.rooms.get(room));
     const listOfUsers = socketIds.map((id) => {

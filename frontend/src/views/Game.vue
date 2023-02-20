@@ -2,14 +2,19 @@
   <div class="container">
     <h1>GAME ROOM</h1>
   </div>
+  <Player></Player>
 </template>
 
 <script>
 
 import router from '@/router';
+import Player from '@/components/Player.vue';
 import { ref } from 'vue';
 export default {
   name: 'game',
+  components: {
+    Player
+  },
   setup () {
     const name = ref('');
     return {
