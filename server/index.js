@@ -12,7 +12,7 @@ const io = require("socket.io")(server, {
 let pot = 0;
 
 io.on("connection", (socket) => {
-  socket.on("join_room", (room, username) => {
+  socket.on("joinRoom", (room, username) => {
     socket.join(room);
     socket.username = username;
     const socketIds = Array.from(io.sockets.adapter.rooms.get(room));
