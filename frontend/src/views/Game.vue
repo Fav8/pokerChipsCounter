@@ -2,6 +2,8 @@
   <div class="container">
     <h1>GAME ROOM</h1>
   </div>
+  <Player :player = "{activePlayer: true}"></Player>
+  <Player></Player>
   <Player></Player>
 </template>
 

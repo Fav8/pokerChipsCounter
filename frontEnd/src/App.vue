@@ -12,7 +12,9 @@
   text-align: center;
   color: #2c3e50;
 }
-
+.flex{
+  display: flex;
+}
 nav {
   padding: 30px;
 }

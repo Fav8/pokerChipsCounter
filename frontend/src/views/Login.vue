@@ -19,7 +19,7 @@ export default {
     const socketService = new SocketService
     const name = ref('');
     function joinRoom() {
-      socketService.joinRoom()
+      socketService.joinRoom(name.value)
       console.log(name.value);
       router.push('/game')
     }
