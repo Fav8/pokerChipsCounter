@@ -9,5 +9,11 @@ export default class SocketService {
         console.log(users);
      })
     }
+    test(userId, chipColour, usersList) {
+      this.socket.emit('addToUser', userId, chipColour, usersList, room)
+      this.socket.on('moneyAddedToUser', (users)=> {
+         console.log(users);
+      })
+     }
   
   }

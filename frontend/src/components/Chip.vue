@@ -1,5 +1,6 @@
 <template>
-    <div class="chipContainer">
+  <div class="chipContainer">
+    <div class="chipButtons">
       <button>-</button>
       <h2>{{ chipValue }}</h2>
       <button>+</button>
@@ -7,6 +8,7 @@
     <div>
       {{ chipAmount }}
     </div>
+  </div>
 </template>
 
 <script>
@@ -33,8 +35,12 @@ h2{
 h3{
     margin: 0;
 }
-.chipContainer{
+.chipButtons{
   display: flex;
   margin: 5px;
+}
+.chipContainer{
+  display: flex;
+  flex-direction: column;
 }
 </style>
