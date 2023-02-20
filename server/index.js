@@ -12,24 +12,46 @@ const io = require("socket.io")(server, {
 let pot = 0;
 
 io.on("connection", (socket) => {
-  socket.on("joinRoom", (room, username) => {
+  socket.on("joinRoom", (username, room) => {
+    socket.join(room);
     socket.username = username;
     const socketIds = Array.from(io.sockets.adapter.rooms.get(room));
     const listOfUsers = socketIds.map((id) => {
       const clientSocket = io.sockets.sockets.get(id);
-      return { username: clientSocket.username, id: id };
+      return { 
+        username: clientSocket.username, 
+        id: id, 
+        chips: {
+          blue: {value: 25, qty: 64},
+          red: {value: 50, qty: 64},
+          green: {value: 100, qty: 32},
+          purple: {value: 200, qty: 40}
+      } 
+    };
     });
-    io.to(room).emit("newUsernameAdded", listOfUsers, pot);
+    io.to(room).emit("newUsernameAdded", listOfUsers);
   });
 
+
+  // //user clicks to add to colour 
+  // socket.on("addToUser", (id, colour, room) => {
+  //   console.log(room)
+  //   io.to(room).emit("moneyAddedToUser", )
+  // });
+
+  // socket.on("removeFromUser", (id, colour, room) => {
+  //   console.log(room)
+  //   io.to(room).emit("moneyAddedToUser", )
+  // });
+
   //user clicks to add to middle 
-  socket.on("addedToPot", (room, pot, amount) => { 
+  socket.on("addedToPot", (pot, amount, id, room) => { 
     pot += amount
     io.to(room).emit("moneyAddedToPot", pot);
   });
 
   //user clicks to remove from middle
-  socket.on("removedFromPot", (room, pot, amount) => { 
+  socket.on("removedFromPot", (pot, amount, id, room) => { 
     if(pot > amount) pot -= amount
     io.to(room).emit("removeFromPot", pot);
   });
