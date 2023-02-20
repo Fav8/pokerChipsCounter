@@ -4,7 +4,7 @@ const http = require("http");
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*", // <-- put you react url here.
+    origin: "*", 
     methods: ["GET", "POST"],
   },
 });
@@ -33,27 +33,36 @@ io.on("connection", (socket) => {
   });
 
 
-  // //user clicks to add to colour 
-  // socket.on("addToUser", (id, colour, room) => {
-  //   console.log(room)
-  //   io.to(room).emit("moneyAddedToUser", )
-  // });
+  //user clicks to add to colour 
+  socket.on("addToUser", (id, colour, listOfUsers, room) => {
+    for(user in listOfUsers) { 
+      if(user.id === id) user.chips[colour].qty += 1
+    }
+    io.to(room).emit("moneyAddedToUser", listOfUsers)
+  });
 
-  // socket.on("removeFromUser", (id, colour, room) => {
-  //   console.log(room)
-  //   io.to(room).emit("moneyAddedToUser", )
-  // });
+  //user clicks to remove from colour 
+  socket.on("removeFromUser", (id, colour, listOfUsers, room) => {
+    for(user in listOfUsers) { 
+      if(user.id === id) user.chips[colour].qty -= 1
+    }
+    io.to(room).emit("moneyAddedToUser", listOfUsers)
+  });
 
   //user clicks to add to middle 
-  socket.on("addedToPot", (pot, amount, id, room) => { 
+  socket.on("addedToPot", (pot, amount, room) => { 
     pot += amount
     io.to(room).emit("moneyAddedToPot", pot);
   });
 
   //user clicks to remove from middle
-  socket.on("removedFromPot", (pot, amount, id, room) => { 
-    if(pot > amount) pot -= amount
-    io.to(room).emit("removeFromPot", pot);
+  socket.on("removedFromPot", (pot, amount, room) => { 
+    let didRemove = false
+    if(pot > amount) {
+      pot -= amount
+      didRemove = false
+    }
+    io.to(room).emit("removeFromPot", pot, didRemove);
   });
 });
 
