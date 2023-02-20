@@ -17,6 +17,8 @@ import router from '@/router';
 import Player from '@/components/Player.vue';
 import { ref } from 'vue';
 import SocketService from '@/services/socketService';
+import io from "socket.io-client";
+
 
 export default {
   name: 'game',
@@ -24,15 +26,21 @@ export default {
     Player
   },
   setup () {
+    const socket = io('localhost:4000');
+
     const socketService = new SocketService;
     function test() {
-      socketService.test('testId', 'blue', [{chips:  { blue: {value: 25, qty: 64},
-green: {value: 100, qty: 32},
-purple: {value: 200, qty: 40},
-red: {value: 50, qty: 64}},
-id: "gGBwyycyLIUZxeyzAAAH",
-username: "tom"}] )
-    }
+        socketService.test('gGBwyycyLIUZxeyzAAAH', 'blue', [{chips:  { blue: {value: 25, qty: 64},
+        green: {value: 100, qty: 32},
+        purple: {value: 200, qty: 40},
+        red: {value: 50, qty: 64}},
+        id: "gGBwyycyLIUZxeyzAAAH",
+        username: "tom"}] )
+      }
+      //The below needs to be in an event lisener
+    socket.on('moneyAddedToUser', (users) => {
+         console.log(users);
+      })
     const name = ref('');
     return {
       name,

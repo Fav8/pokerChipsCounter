@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
       const clientSocket = io.sockets.sockets.get(id);
       return { 
         username: clientSocket.username, 
-        id: id, 
+        id: "gGBwyycyLIUZxeyzAAAH", 
         chips: {
           blue: {value: 25, qty: 64},
           red: {value: 50, qty: 64},
@@ -36,17 +36,18 @@ io.on("connection", (socket) => {
   //user clicks to add to colour 
   socket.on("addToUser", (userId, chipColour, listOfUsers, room) => {
     for(user in listOfUsers) { 
-      if(user.id === userId) user.chips[colour].qty += 1
+      if(user.id === userId) user.chips[chipColour].qty += 1
     }
+    console.log(listOfUsers)
     io.to(room).emit("moneyAddedToUser", listOfUsers)
   });
 
   //user clicks to remove from colour 
   socket.on("removeFromUser", (userId, chipColour, listOfUsers, room) => {
     for(user in listOfUsers) { 
-      if(user.id === userId) user.chips[colour].qty -= 1
+      if(user.id === userId) user.chips[chipColour].qty -= 1
     }
-    io.to(room).emit("moneyAddedToUser", listOfUsers)
+    io.to(room).emit("moneyRemovedFromUser", listOfUsers)
   });
 
   //user clicks to add to middle 
