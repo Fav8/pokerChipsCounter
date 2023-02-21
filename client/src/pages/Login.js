@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
 import {
   BrowserRouter as Router,
@@ -8,11 +8,13 @@ import {
 } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SocketService from '../services/socketService';
+import { playersContext } from '../context/playersContext';
 const socket = io('localhost:4000');
 const socketService = new SocketService()
 
 function Login() {
   const navigate = useNavigate();
+  const { players, setPlayers } = useContext(playersContext);
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [formField, setFormField] = React.useState({
     username:"", 
@@ -25,6 +27,7 @@ function Login() {
 
   socket.on('newUsernameAdded', (users) => {
     console.log(users);
+    setPlayers(users)
     navigate('/game')
   })
 
