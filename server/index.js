@@ -19,15 +19,16 @@ io.on("connection", (socket) => {
       const clientSocket = io.sockets.sockets.get(id);
       return { 
         username: clientSocket.username, 
-        id: "gGBwyycyLIUZxeyzAAAH", 
+        id: genRanHex(8), 
         chips: {
           blue: {value: 25, qty: 64},
           red: {value: 50, qty: 64},
           green: {value: 100, qty: 32},
           purple: {value: 200, qty: 40}
-      } 
-    };
+        } 
+      };
     });
+    console.log(listOfUsers, 'tset');
     io.to(room).emit("newUsernameAdded", listOfUsers);
   });
 
@@ -69,3 +70,7 @@ io.on("connection", (socket) => {
 server.listen(4000, () => {
   console.log("listening on *:4000");
 });
+
+
+//helpers
+const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');

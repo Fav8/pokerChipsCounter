@@ -32,7 +32,7 @@ function Login() {
   })
 
   function handleSubmit(){
-    socket.emit('joinRoom', 'test', 'poker')
+    socket.emit('joinRoom', formField.username, 'poker')
   }
 
   return (

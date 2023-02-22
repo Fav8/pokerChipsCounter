@@ -8,18 +8,13 @@ function Game() {
   const { players, setPlayers } = useContext(playersContext);
   const socket = io('localhost:4000');
   const socketService = new SocketService();
-    function test() {
-        socketService.test('gGBwyycyLIUZxeyzAAAH', 'blue', [{chips:  { blue: {value: 25, qty: 64},
-        green: {value: 100, qty: 32},
-        purple: {value: 200, qty: 40},
-        red: {value: 50, qty: 64}},
-        id: "gGBwyycyLIUZxeyzAAAH",
-        username: "tom"}] )
-      }
-      //The below needs to be in an event lisener
-    socket.on('moneyAddedToUser', (users) => {
-         console.log(users);
-      })
+ const usersList = players.map((person => <li key={person.id}>{person.username}</li>))
+  function test() {
+      socketService.test('gGBwyycyLIUZxeyzAAAH', 'blue', players)
+    }
+  socket.on('moneyAddedToUser', (users) => {
+        console.log(users);
+    })
 
   return (
     <div>
@@ -27,12 +22,9 @@ function Game() {
         <h1>GAME ROOM</h1>
       </div>
       <div>
-        {/* <Player :player = "{activePlayer: true}"></Player>
-        <Player></Player>
-        <Player></Player> */}
-        {players[0].username}
+        {usersList}
       </div>
-      <button>TEST</button>
+      <button onClick={test}>TEST</button>
     </div>
   );
 }
